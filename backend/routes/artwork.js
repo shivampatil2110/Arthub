@@ -8,7 +8,6 @@ const upload = require("../config/multer");
 // Protect this route with verifyToken
 router.post(
   "/",
-  verifyToken,
   upload.single("image"),
   artworkController.uploadArtwork
 );

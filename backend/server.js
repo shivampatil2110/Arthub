@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+const cookieParser = require("cookie-parser");
 
 // Load environment variables
 dotenv.config();
@@ -15,6 +16,12 @@ const { verifyToken } = require("./middlewares/authMiddleware");
 connectDB();
 
 const app = express();
+app.use(cors({
+  origin: "http://localhost:4200", // Allow frontend origin
+  credentials: true // Allow credentials (cookies)
+}));
+app.use(express.json());
+app.use(cookieParser());
 
 // Middleware to parse JSON bodies and handle CORS
 app.use(express.json());

@@ -50,7 +50,12 @@ exports.login = async (req, res) => {
       jwtConfig.secret,
       { expiresIn: jwtConfig.expiresIn }
     );
-    res.status(200).json({ token });
+    res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: "Lax",
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+    res.status(200).json({ message: "Login Successfull." });
   } catch (error) {
     console.error("Login error:", error);
     res.status(500).json({ error: "Server error" });
